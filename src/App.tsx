@@ -15,6 +15,7 @@ import "./index.scss";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermOfUse from "./components/TermOfUse";
 import ProjectDetails from "./components/ProjectDetails";
+import ProjectLegalPage from "./components/ProjectLegalPage";
 
 // Component con cho trang Home để code gọn hơn
 const HomePage: React.FC = () => (
@@ -54,6 +55,14 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/term-of-use" element={<TermOfUse />} />
           <Route path="/project/:id" element={<ProjectDetails />} />
+          <Route
+            path="/project/:projectId/privacy"
+            element={<ProjectLegalPage type="privacy" />}
+          />
+          <Route
+            path="/project/:projectId/terms"
+            element={<ProjectLegalPage type="terms" />}
+          />
         </Routes>
 
         <Footer />

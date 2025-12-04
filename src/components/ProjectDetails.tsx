@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+// components/ProjectDetails.tsx
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { projectsData } from "../data/projectsData"; // Import dữ liệu
+import { projectsData } from "../data/projectsData";
 import FadeIn from "./FadeIn";
-import "../index.scss"; // Tận dụng style cũ hoặc tạo file scss mới
+import "../index.scss";
 
 const ProjectDetails: React.FC = () => {
-  const { id } = useParams(); // Lấy ID từ URL
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<"overview" | "privacy" | "terms">(
-    "overview"
-  );
 
-  // Tìm project dựa trên ID
+  // Tìm project
   const project = projectsData.find((p) => p.id === id);
 
   useEffect(() => {
@@ -20,7 +18,7 @@ const ProjectDetails: React.FC = () => {
 
   if (!project) {
     return (
-      <div style={{ paddingTop: 100, textAlign: "center" }}>
+      <div style={{ paddingTop: 100, textAlign: "center", color: "white" }}>
         Project not found
       </div>
     );
@@ -36,48 +34,17 @@ const ProjectDetails: React.FC = () => {
           className="container"
           style={{ maxWidth: 800, margin: "0 auto", padding: "0 20px" }}
         >
-          {/* Header & Navigation Tabs */}
+          {/* Header */}
           <div
             className="project-header"
-            style={{ marginBottom: 40, textAlign: "center" }}
+            style={{ marginBottom: 30, textAlign: "center" }}
           >
             <h1>{project.title}</h1>
-
-            <div
-              className="tabs"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                gap: 20,
-                marginTop: 20,
-              }}
-            >
-              <button
-                className={`tab-btn ${
-                  activeTab === "overview" ? "active" : ""
-                }`}
-                onClick={() => setActiveTab("overview")}
-              >
-                Overview
-              </button>
-              <button
-                className={`tab-btn ${activeTab === "privacy" ? "active" : ""}`}
-                onClick={() => setActiveTab("privacy")}
-              >
-                Privacy Policy
-              </button>
-              <button
-                className={`tab-btn ${activeTab === "terms" ? "active" : ""}`}
-                onClick={() => setActiveTab("terms")}
-              >
-                Terms of Use
-              </button>
-            </div>
           </div>
 
-          {/* Content Area */}
+          {/* Nội dung chính (Không còn Tabs nữa) */}
           <div
-            className="tab-content"
+            className="project-content-box"
             style={{
               background: "rgba(255,255,255,0.05)",
               padding: 30,
@@ -85,56 +52,87 @@ const ProjectDetails: React.FC = () => {
               border: "1px solid rgba(128,128,128,0.2)",
             }}
           >
-            {/* 1. OVERVIEW TAB */}
-            {activeTab === "overview" && (
-              <div className="overview-section">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  style={{ width: "100%", borderRadius: 10, marginBottom: 20 }}
-                />
-                <p style={{ fontSize: "1.1rem", lineHeight: 1.6 }}>
-                  {project.description}
-                </p>
-                <br />
+            <img
+              src={project.image}
+              alt={project.title}
+              style={{ width: "100%", borderRadius: 10, marginBottom: 20 }}
+            />
+
+            <p
+              style={{ fontSize: "1.1rem", lineHeight: 1.6, marginBottom: 30 }}
+            >
+              {project.description}
+            </p>
+
+            {/* Khu vực các nút hành động (Actions) */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 15,
+                justifyContent: "center",
+              }}
+            >
+              {/* Nút Download / Open Project */}
+              {project.link && (
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noreferrer"
                   style={{
-                    display: "inline-block",
                     padding: "10px 20px",
                     background: "#007bff",
                     color: "#fff",
                     textDecoration: "none",
                     borderRadius: 5,
+                    fontWeight: "bold",
                   }}
                 >
-                  Open Project / Download
+                  Download App
                 </a>
-              </div>
-            )}
+              )}
 
-            {/* 2. PRIVACY TAB */}
-            {activeTab === "privacy" && (
-              <div className="legal-text">{project.privacyContent}</div>
-            )}
+              <button
+                onClick={() => navigate(`/project/${project.id}/privacy`)}
+                style={{
+                  padding: "10px 20px",
+                  background: "#007bff",
+                  color: "#fff",
+                  textDecoration: "none",
+                  borderRadius: 5,
+                  fontWeight: "bold",
+                }}
+              >
+                Privacy Policy
+              </button>
 
-            {/* 3. TERMS TAB */}
-            {activeTab === "terms" && (
-              <div className="legal-text">{project.termsContent}</div>
-            )}
+              {/* Nút 3: Terms of Use */}
+              <button
+                onClick={() => navigate(`/project/${project.id}/terms`)}
+                style={{
+                  padding: "10px 20px",
+                  background: "#007bff",
+                  color: "#fff",
+                  textDecoration: "none",
+                  borderRadius: 5,
+                  fontWeight: "bold",
+                }}
+              >
+                Terms of Use
+              </button>
+            </div>
           </div>
 
+          {/* Nút Back */}
           <button
             onClick={() => navigate("/")}
             style={{
               marginTop: 30,
               background: "transparent",
-              border: "1px solid gray",
-              padding: "8px 16px",
+              border: "none",
               cursor: "pointer",
-              color: "inherit",
+              color: "gray",
+              fontSize: "1rem",
             }}
           >
             ← Back to Home
