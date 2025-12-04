@@ -39,48 +39,46 @@ const ProjectLegalPage: React.FC<Props> = ({ type }) => {
       className="legal-page-wrapper"
       style={{ paddingTop: 100, paddingBottom: 50, minHeight: "80vh" }}
     >
-      <FadeIn transitionDuration={700}>
-        <div
-          className="container"
-          style={{ maxWidth: 800, margin: "0 auto", padding: "0 20px" }}
+      {/* <FadeIn transitionDuration={700}> */}
+      <div
+        className="container"
+        style={{ maxWidth: 800, margin: "0 auto", padding: "0 20px" }}
+      >
+        {/* Nút quay lại trang chi tiết dự án */}
+        <button
+          onClick={() => navigate(`/project/${project.id}`)}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "#007bff",
+            cursor: "pointer",
+            marginBottom: 20,
+            fontSize: "1rem",
+          }}
         >
-          {/* Nút quay lại trang chi tiết dự án */}
-          <button
-            onClick={() => navigate(`/project/${project.id}`)}
-            style={{
-              background: "transparent",
-              border: "none",
-              color: "#007bff",
-              cursor: "pointer",
-              marginBottom: 20,
-              fontSize: "1rem",
-            }}
-          >
-            ← Back to {project.title}
-          </button>
+          ← Back to {project.title}
+        </button>
 
-          <div
-            className="legal-content-box"
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              padding: 40,
-              borderRadius: 12,
-            }}
-          >
-            <h1 style={{ marginBottom: 10 }}>{pageTitle}</h1>
-            <p style={{ color: "gray", marginBottom: 30 }}>
-              For {project.title}
-            </p>
+        <div
+          className="legal-content-box"
+          style={{
+            background: "rgba(255,255,255,0.05)",
+            padding: 40,
+            borderRadius: 12,
+          }}
+        >
+          <h1 style={{ marginBottom: 10 }}>{pageTitle}</h1>
+          <p style={{ color: "gray", marginBottom: 30 }}>For {project.title}</p>
 
-            <hr
-              style={{ borderColor: "rgba(255,255,255,0.1)", marginBottom: 30 }}
-            />
+          <hr
+            style={{ borderColor: "rgba(255,255,255,0.1)", marginBottom: 30 }}
+          />
 
-            {/* Hiển thị nội dung riêng của dự án */}
-            <div className="legal-text-body">{content}</div>
-          </div>
+          {/* Hiển thị nội dung riêng của dự án */}
+          <div className="legal-text-body">{content}</div>
         </div>
-      </FadeIn>
+      </div>
+      {/* </FadeIn> */}
     </div>
   );
 };
